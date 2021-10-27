@@ -16,7 +16,6 @@ function updateView(){
 }
 updateView();
 
-
 const btnSliderHandler = (direction = 'next') => () =>{
     slider.currentIndex = slider[direction === 'next' ? 'nextIndex' : 'prevIndex'];
     updateView();
@@ -24,6 +23,11 @@ const btnSliderHandler = (direction = 'next') => () =>{
 
 nextBtn.addEventListener('click', btnSliderHandler('next'));
 prevBtn.addEventListener('click', btnSliderHandler('prev'));
+
+image.addEventListener('wheel', (e)=>{
+    const handler = e.deltaY>0?btnSliderHandler('next'):btnSliderHandler('prev');
+    handler();
+})
 
 
 
@@ -38,5 +42,9 @@ function btnUniqHandler(eventObject){
     console.groupEnd();
 }
 
+const uniqueImg = document.getElementById('unique');
 
-//uniqueBtn.dispatchEvent(new MouseEvent('click'));
+const srcAttr = document.createAttribute();
+srcAttr.value = imagesDB[0];
+
+uniqueImg.setAttributeNode(srcAttr);
